@@ -232,6 +232,54 @@
     color: #55555f;
     letter-spacing: 0.04em;
   }
+
+  .support-divider{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin: 22px 0 12px;
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform:uppercase;
+  }
+  .support-divider::before,
+  .support-divider::after{
+    content:'';
+    flex:1;
+    height:1px;
+    background: rgba(255,255,255,0.08);
+  }
+
+  .support-link{
+    border-color: rgba(0,169,255,0.25);
+    background: linear-gradient(90deg, rgba(0,169,255,0.08), rgba(168,85,247,0.08));
+  }
+  .support-link:hover{
+    border-color: #00a9ff;
+    background: linear-gradient(90deg, rgba(0,169,255,0.14), rgba(168,85,247,0.14));
+  }
+
+  .wallet-row{
+    width:100%;
+    cursor:pointer;
+    font-family: inherit;
+    margin-top: 12px;
+  }
+  .wallet-address{
+    font-family: 'Chakra Petch', monospace;
+    letter-spacing: 0.02em;
+  }
+  .copy-hint{
+    margin-left:auto;
+    font-size: 11px;
+    color: var(--muted);
+    font-weight:600;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    flex-shrink:0;
+    padding-left: 8px;
+  }
 </style>
 </head>
 <body>
@@ -284,8 +332,56 @@
     </a>
   </nav>
 
+  <div class="support-divider"><span>Support</span></div>
+
+  <a class="link support-link" href="https://www.paypal.com/donate/?business=evnlmao@gmail.com&currency_code=USD" target="_blank" rel="noopener">
+    <span class="icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#00457C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 21l2-14h6c2.5 0 4 1.5 3.5 4-.5 3-2.5 4.5-5.5 4.5H9.5"/><path d="M6 17h6c2.5 0 4-1.5 4.5-4"/></svg>
+    </span>
+    <span class="link-text">
+      <span class="link-label">Support via PayPal</span>
+      <span class="link-sub">Donations help fund development</span>
+    </span>
+  </a>
+
+  <button class="link wallet-row" type="button" data-copy="2wEmJQbn8LdnXyaW2B2gjKd1VHfxvpk1Yx5wYSzKWCyN">
+    <span class="icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#14F195" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h13l3 3H7L4 7z"/><path d="M4 17h13l3-3H7l-3 3z"/><path d="M4 12h16"/></svg>
+    </span>
+    <span class="link-text">
+      <span class="link-label">Solana</span>
+      <span class="link-sub wallet-address">2wEmJQbn...WSzKWCyN</span>
+    </span>
+    <span class="copy-hint">Copy</span>
+  </button>
+
+  <button class="link wallet-row" type="button" data-copy="bc1q8c37as7leuxvypm6w3a4c9euxe3shgn0htq83r">
+    <span class="icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#F7931A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 8.5h3.2c1.2 0 2 .7 2 1.7s-.8 1.7-2 1.7H9.5m0 0h3.6c1.3 0 2.2.7 2.2 1.8s-.9 1.8-2.2 1.8H9.5m1.2-8v8M12.8 6.5v1.7M12.8 15.8v1.7"/></svg>
+    </span>
+    <span class="link-text">
+      <span class="link-label">Bitcoin</span>
+      <span class="link-sub wallet-address">bc1q8c37...gn0htq83r</span>
+    </span>
+    <span class="copy-hint">Copy</span>
+  </button>
+
   <p class="footer">zachco.xyz</p>
 </main>
+
+<script>
+  document.querySelectorAll('.wallet-row').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var value = btn.getAttribute('data-copy');
+      var hint = btn.querySelector('.copy-hint');
+      navigator.clipboard.writeText(value).then(function(){
+        var original = hint.textContent;
+        hint.textContent = 'Copied!';
+        setTimeout(function(){ hint.textContent = original; }, 1500);
+      });
+    });
+  });
+</script>
 
 </body>
 </html>
